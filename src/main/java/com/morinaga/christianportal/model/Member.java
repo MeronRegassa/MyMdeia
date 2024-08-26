@@ -1,6 +1,7 @@
 package com.morinaga.christianportal.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,8 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private ServiceRole serviceRole;
 
+
+    @JsonIgnoreProperties({"member"}) // Ignore the circular reference
     @OneToOne(mappedBy = "member")
     private User user;
 

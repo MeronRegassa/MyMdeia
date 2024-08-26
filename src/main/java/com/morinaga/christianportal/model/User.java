@@ -1,5 +1,6 @@
 package com.morinaga.christianportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments;
 
+    @JsonIgnoreProperties({"user"})  // ignore the circular reference
     @OneToOne
     @JoinColumn(name = "member_id", nullable = true)
     private Member member;
