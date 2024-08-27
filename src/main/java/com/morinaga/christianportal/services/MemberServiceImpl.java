@@ -4,8 +4,10 @@ package com.morinaga.christianportal.services;
 import com.morinaga.christianportal.config.ResourceNotFoundException;
 import com.morinaga.christianportal.model.Member;
 import com.morinaga.christianportal.repositories.MemberRepository;
+import com.morinaga.christianportal.repositories.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -14,9 +16,13 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
+
+
+
     @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
+
     }
 
     @Override
@@ -28,6 +34,9 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }
+
+
+
 
     @Override
     public Member getMemberById(Long id) {

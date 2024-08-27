@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -65,6 +67,12 @@ public class UserController {
         // Invalidate the session to log out the user
         session.invalidate();
         return ResponseEntity.ok().body("Logout successful");
+    }
+
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 }
 //  @PostMapping("/login")

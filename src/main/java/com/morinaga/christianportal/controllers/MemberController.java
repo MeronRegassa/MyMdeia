@@ -2,12 +2,14 @@ package com.morinaga.christianportal.controllers;
 
 import com.morinaga.christianportal.model.Member;
 import com.morinaga.christianportal.repositories.MemberRepository;
+import com.morinaga.christianportal.repositories.UserRegistrationDto;
 import com.morinaga.christianportal.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //Ensure that your backend provides an endpoint to fetch members
 
@@ -26,6 +28,23 @@ public class MemberController {
     public List<Member> getAllMembers() {
         return memberService.getAllMembers();
     }
+
+//    @GetMapping
+//    public List<UserRegistrationDto> getAllMembers() {
+//        return memberService.getAllMembers().stream().map(this::convertToDto).collect(Collectors.toList());
+//    }
+//
+//    private UserRegistrationDto convertToDto(Member member) {
+//        UserRegistrationDto dto = new UserRegistrationDto();
+//        dto.setUsername(member.getUser().getUsername());
+//        dto.setEmail(member.getUser().getEmail());
+//        dto.setFirstName(member.getFirstName());
+//        dto.setLastName(member.getLastName());
+//        dto.setPhoneNumber(member.getPhoneNumber());
+//        dto.setServiceRole(member.getServiceRole());
+//        return dto;
+//    }
+
 
     @GetMapping("/{id}")
     public Member getMemberById(@PathVariable Long id) {

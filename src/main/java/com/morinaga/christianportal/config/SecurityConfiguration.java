@@ -1,7 +1,9 @@
 package com.morinaga.christianportal.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,7 +41,10 @@ public class SecurityConfiguration {
                                 "/api/members/add",
                                 "/api/members",
                                 "/api/members/id",
-                                "/api/comments/add"
+                                "/api/contents",
+                                "/api/comments/add",
+                                "/api/comments"
+
                         ).permitAll() // Allow access to public and static resources
                         .requestMatchers("/getAll/**",
                                 "/save/**",
@@ -85,6 +90,28 @@ public class SecurityConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/public/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
+//    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .inMemoryAuthentication()
+                .withUser("user").password("{noop}password").roles("USER");
     }
 }
 

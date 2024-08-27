@@ -1,5 +1,6 @@
 package com.morinaga.christianportal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "author")
+    @JsonIgnore
     private Set<Content> contents;
 
     @OneToMany(mappedBy = "user")

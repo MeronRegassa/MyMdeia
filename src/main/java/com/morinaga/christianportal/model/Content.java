@@ -1,5 +1,6 @@
 package com.morinaga.christianportal.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,11 +26,12 @@ public class Content {
     private Date uploadDate;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @JoinColumn(name = "author_id",  referencedColumnName = "userId")
+    @JsonBackReference  //Use @JsonIgnore or @JsonBackReference and @JsonManagedReference annotations to manage serialization of bidirectional relationships.
     private User author;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToMany(mappedBy = "content")
