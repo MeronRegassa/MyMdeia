@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/register/**",
+                                "/api/members/**",
                                 "/",
                                 "/static/**",
                                 "/css/**",
@@ -40,7 +41,8 @@ public class SecurityConfiguration {
                                 "/api/contents/add",
                                 "/api/members/add",
                                 "/api/members",
-                                "/api/members/id",
+                                "/api/members/memberId",
+                                "/api/members/member.memberId",
                                 "/api/contents",
                                 "/api/comments/add",
                                 "/api/comments"

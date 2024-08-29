@@ -80,4 +80,5 @@ public class UserServiceImpl implements UserService {
     public boolean checkPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
+
 }

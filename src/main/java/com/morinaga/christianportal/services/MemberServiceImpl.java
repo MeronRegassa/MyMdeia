@@ -4,10 +4,9 @@ package com.morinaga.christianportal.services;
 import com.morinaga.christianportal.config.ResourceNotFoundException;
 import com.morinaga.christianportal.model.Member;
 import com.morinaga.christianportal.repositories.MemberRepository;
-import com.morinaga.christianportal.repositories.UserRegistrationDto;
+import com.morinaga.christianportal.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -17,6 +16,8 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
 
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Autowired
@@ -68,4 +69,16 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found with id " + id));
         memberRepository.delete(member);
     }
+
+    @Override
+    public void deleteMemberById(Long memberId) {
+        // First, delete the related user records
+        userRepository.deleteByMemberId(memberId);
+
+        // Then, delete the member
+        memberRepository.deleteById(memberId);
+    }
+
+
+
 }

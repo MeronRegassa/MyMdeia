@@ -4,5 +4,6 @@ public enum ServiceRole {
     SINGER,
     PREACHER,
     DEACON,
+    ADMIN,
     // Add other roles as needed
 }

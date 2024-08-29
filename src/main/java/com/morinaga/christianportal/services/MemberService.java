@@ -11,4 +11,6 @@ public interface MemberService {
     Member createMember(Member member);
     Member updateMember(Long id, Member memberDetails);
     void deleteMember(Long id);
+
+    void deleteMemberById(Long memberId);
 }

@@ -46,10 +46,20 @@ public class MemberController {
 //    }
 
 
-    @GetMapping("/{id}")
-    public Member getMemberById(@PathVariable Long id) {
-        return memberService.getMemberById(id);
+//    @GetMapping("/{id}")
+//    public Member getMemberById(@PathVariable Long id) {
+//        return memberService.getMemberById(id);
+//    }
+@GetMapping("/{memberId}")
+public ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
+    Member member = memberService.getMemberById(memberId);
+    if (member != null) {
+        return ResponseEntity.ok(member);
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
+
 
 
     // Adding the `addMember` method as an alias to `createMember`
@@ -63,9 +73,9 @@ public class MemberController {
         return memberService.createMember(member);
     }
 
-    @PutMapping("/{id}")
-    public Member updateMember(@PathVariable Long id, @RequestBody Member memberDetails) {
-        return memberService.updateMember(id, memberDetails);
+    @PutMapping("/{memberId}")
+    public Member updateMember(@PathVariable Long memberId, @RequestBody Member memberDetails) {
+        return memberService.updateMember(memberId, memberDetails);
     }
 
 //    @DeleteMapping("/{id}")
@@ -74,9 +84,9 @@ public class MemberController {
 //
 //    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMember(@PathVariable Long id) {
-        memberService.deleteMember(id);
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<Void> deleteMember(@PathVariable Long memberId) {
+        memberService.deleteMemberById(memberId);
         return ResponseEntity.noContent().build();
     }
 }
