@@ -2,9 +2,11 @@ package com.morinaga.christianportal.services;
 
 import com.morinaga.christianportal.model.Member;
 import com.morinaga.christianportal.model.User;
+import com.morinaga.christianportal.repositories.ContentRepository;
 import com.morinaga.christianportal.repositories.MemberRepository;
 import com.morinaga.christianportal.repositories.UserRegistrationDto;
 import com.morinaga.christianportal.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +20,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ContentRepository contentRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, MemberRepository memberRepository, PasswordEncoder passwordEncoder, ContentRepository contentRepository) {
         this.userRepository = userRepository;
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.contentRepository =  contentRepository;
     }
 
     @Override
@@ -81,4 +85,11 @@ public class UserServiceImpl implements UserService {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
+
+    @Override
+    @Transactional
+    public void deleteUserById(Long userId) {
+        contentRepository.deleteByAuthorId(userId); // Delete related content
+        userRepository.deleteById(userId);          // Then delete the user
+    }
 }

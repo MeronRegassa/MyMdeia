@@ -24,14 +24,15 @@ public class User {
     private String password;
     private String email;
 
-    @OneToMany(mappedBy = "author")
-    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Prevents serialization of the contents field to avoid circular reference
     private Set<Content> contents;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore // Prevents circular reference during serialization
     private Set<Comment> comments;
 
-    @JsonIgnoreProperties({"user"})  // ignore the circular reference
+    @JsonIgnoreProperties({"user"})  // Prevents circular reference with Member entity
     @OneToOne
     @JoinColumn(name = "member_id", nullable = true)
     private Member member;

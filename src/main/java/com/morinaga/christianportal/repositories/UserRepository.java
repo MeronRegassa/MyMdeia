@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-
+    // Custom query method to delete users by memberId if needed
         @Modifying
         @Transactional
         @Query("DELETE FROM User u WHERE u.member.memberId = :memberId")

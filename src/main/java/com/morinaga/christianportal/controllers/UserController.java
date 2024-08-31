@@ -74,6 +74,12 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        userService.deleteUserById(userId);
+        return ResponseEntity.noContent().build(); // Returns a 204 No Content response
+    }
 }
 //  @PostMapping("/login")
 //    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {

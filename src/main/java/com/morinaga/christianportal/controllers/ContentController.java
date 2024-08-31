@@ -48,9 +48,9 @@ public ResponseEntity<ContentDTO> addContent(@RequestBody Content content) {
 
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Content> getContentById(@PathVariable Long id) {
-        Content content = contentService.getContentById(id);
+    @GetMapping("/{contentId}")
+    public ResponseEntity<Content> getContentById(@PathVariable Long contentId) {
+        Content content = contentService.getContentById(contentId);
         return new ResponseEntity<>(content, HttpStatus.OK);
     }
 
@@ -68,15 +68,15 @@ public ResponseEntity<ContentDTO> addContent(@RequestBody Content content) {
                 .collect(Collectors.toList());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Content> updateContent(@PathVariable Long id, @RequestBody Content contentDetails) {
-        Content updatedContent = contentService.updateContent(id, contentDetails);
+    @PutMapping("/update/content/{contentId}")
+    public ResponseEntity<Content> updateContent(@PathVariable Long contentId, @RequestBody Content contentDetails) {
+        Content updatedContent = contentService.updateContent(contentId, contentDetails);
         return new ResponseEntity<>(updatedContent, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteContent(@PathVariable Long id) {
-        contentService.deleteContent(id);
+    @DeleteMapping("/delete/{contentId}")
+    public ResponseEntity<Void> deleteContent(@PathVariable Long contentId) {
+        contentService.deleteContent(contentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

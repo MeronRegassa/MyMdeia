@@ -1,6 +1,7 @@
 package com.morinaga.christianportal.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Category {
     private String description;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore //prevent recursion
     private Set<Content> contents;
 
     public Category(String name, String description, Set<Content> contents) {

@@ -4,6 +4,7 @@ import com.morinaga.christianportal.model.Member;
 import com.morinaga.christianportal.repositories.MemberRepository;
 import com.morinaga.christianportal.repositories.UserRegistrationDto;
 import com.morinaga.christianportal.services.MemberService;
+import com.morinaga.christianportal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,17 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//Ensure that your backend provides an endpoint to fetch members
+//Ensure that your backend psrovides an endpoint to fetch members
 
 @RestController
 @RequestMapping("/api/members")
 public class MemberController {
 
     private final MemberService memberService;
+    private final UserService userService;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, UserService userService) {
         this.memberService = memberService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -46,20 +49,19 @@ public class MemberController {
 //    }
 
 
-//    @GetMapping("/{id}")
+    //    @GetMapping("/{id}")
 //    public Member getMemberById(@PathVariable Long id) {
 //        return memberService.getMemberById(id);
 //    }
-@GetMapping("/{memberId}")
-public ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
-    Member member = memberService.getMemberById(memberId);
-    if (member != null) {
-        return ResponseEntity.ok(member);
-    } else {
-        return ResponseEntity.notFound().build();
+    @GetMapping("/{memberId}")
+    public ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
+        Member member = memberService.getMemberById(memberId);
+        if (member != null) {
+            return ResponseEntity.ok(member);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-}
-
 
 
     // Adding the `addMember` method as an alias to `createMember`
@@ -88,6 +90,13 @@ public ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
     public ResponseEntity<Void> deleteMember(@PathVariable Long memberId) {
         memberService.deleteMemberById(memberId);
         return ResponseEntity.noContent().build();
+
     }
 }
+//    @DeleteMapping("/users/{userId}")
+//    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+//        userService.deleteUserById(userId);
+//        return ResponseEntity.noContent().build();
+//    }
+//}
 
