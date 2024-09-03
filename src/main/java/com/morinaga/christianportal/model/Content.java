@@ -31,7 +31,7 @@ public class Content {
     private User author;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @OneToMany(mappedBy = "content")
@@ -45,6 +45,9 @@ public class Content {
         this.author = author;
         this.category = category;
         this.comments = comments;
+    }
+
+    public void setId(long l) {
     }
 // Getters and Setters
 }

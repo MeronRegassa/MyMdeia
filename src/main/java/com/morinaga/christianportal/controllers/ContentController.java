@@ -1,8 +1,11 @@
 package com.morinaga.christianportal.controllers;
 
+import com.morinaga.christianportal.model.Category;
+import com.morinaga.christianportal.model.Comment;
 import com.morinaga.christianportal.model.Content;
 import com.morinaga.christianportal.model.Member;
 import com.morinaga.christianportal.repositories.ContentDTO;
+import com.morinaga.christianportal.repositories.ContentRequestDto;
 import com.morinaga.christianportal.services.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,6 +57,14 @@ public ResponseEntity<ContentDTO> addContent(@RequestBody Content content) {
         return new ResponseEntity<>(content, HttpStatus.OK);
     }
 
+
+
+ //adding comments on content.
+    @PostMapping("/{id}/comments")
+    public ResponseEntity<Void> addComment(@PathVariable Long id, @RequestBody Comment comment) {
+        contentService.addCommentToContent(id, comment);
+        return ResponseEntity.ok().build();
+    }
 //    @GetMapping
 //    public ResponseEntity<List<Content>> getAllContents() {
 //        List<Content> contents = contentService.getAllContents();
@@ -80,5 +91,19 @@ public ResponseEntity<ContentDTO> addContent(@RequestBody Content content) {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+//    @PostMapping("/saveAll")
+//    public ResponseEntity<Content> saveAllContentDetails(
+//            @RequestBody ContentRequestDto contentRequest) {
+//
+//        // Extract content, comments, and category from the request
+//        Content content = contentRequest.getContent();
+//        List<Comment> comments = contentRequest.getComments();
+//        Category category = contentRequest.getCategory();
+//
+//        // Save all details
+//        Content savedContent = contentService.saveAllContentDetails(content, comments, category);
+//
+//        return ResponseEntity.ok(savedContent);
+//    }
 
 }

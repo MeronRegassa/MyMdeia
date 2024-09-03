@@ -2,6 +2,7 @@ package com.morinaga.christianportal.services;
 
 
 import com.morinaga.christianportal.config.ResourceNotFoundException;
+import com.morinaga.christianportal.dto.MemberDto;
 import com.morinaga.christianportal.model.Member;
 import com.morinaga.christianportal.repositories.MemberRepository;
 import com.morinaga.christianportal.repositories.UserRepository;
@@ -26,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
+
     @Override
     public Member saveMember(Member member) {
         return memberRepository.save(member);
@@ -39,9 +41,11 @@ public class MemberServiceImpl implements MemberService {
 
 
 
+
     @Override
-    public Member getMemberById(Long id) {
-        return memberRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Member not found with id " + id));
+    public MemberDto getMemberById(Long id) {
+        return memberRepository.findMemberDtoById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Member not found with id " + id));
     }
 
     @Override
@@ -79,6 +83,11 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.deleteById(memberId);
     }
 
+    @Override
+    public List<MemberDto> findAllMembers() {
+      return   memberRepository.findAllMembers();
+//        return List.of();
+    }
 
 
 }

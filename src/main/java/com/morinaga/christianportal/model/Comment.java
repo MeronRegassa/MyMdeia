@@ -39,5 +39,11 @@ public class Comment {
         this.user = user;
         this.member = member;
     }
+
+//    public  setId( ) {
+//    }
+
+    public void setId(long l) {
+    }
 // Getters and Setters
 }

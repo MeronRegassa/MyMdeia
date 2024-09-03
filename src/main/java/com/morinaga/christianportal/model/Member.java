@@ -33,7 +33,7 @@ public class Member {
     @OneToOne(mappedBy = "member")
     private User user;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
     // Getters and Setters

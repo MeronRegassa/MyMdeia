@@ -1,5 +1,7 @@
 package com.morinaga.christianportal.services;
 
+import com.morinaga.christianportal.model.Category;
+import com.morinaga.christianportal.model.Comment;
 import com.morinaga.christianportal.model.Content;
 
 import java.util.List;
@@ -13,5 +15,7 @@ public interface ContentService {
     boolean checkPassword(String rawPassword, String encodedPassword);
 
 
+    Comment addCommentToContent(Long id, Comment comment);
 
+//    Content saveAllContentDetails(Content content, List<Comment> comments, Category category);
 }

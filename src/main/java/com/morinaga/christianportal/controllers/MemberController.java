@@ -1,6 +1,8 @@
 package com.morinaga.christianportal.controllers;
 
+import com.morinaga.christianportal.config.ResourceNotFoundException;
 import com.morinaga.christianportal.model.Member;
+import com.morinaga.christianportal.dto.MemberDto;
 import com.morinaga.christianportal.repositories.MemberRepository;
 import com.morinaga.christianportal.repositories.UserRegistrationDto;
 import com.morinaga.christianportal.services.MemberService;
@@ -19,22 +21,30 @@ import java.util.stream.Collectors;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
     private final UserService userService;
 
     @Autowired
-    public MemberController(MemberService memberService, UserService userService) {
+    public MemberController(MemberService memberService, UserService userService, MemberRepository memberRepository) {
         this.memberService = memberService;
         this.userService = userService;
-    }
-
-    @GetMapping
-    public List<Member> getAllMembers() {
-        return memberService.getAllMembers();
+        this.memberRepository = memberRepository;
     }
 
 //    @GetMapping
+//    public List<Member> getAllMembers() {
+//        return memberService.getAllMembers();
+//    }
+
+
+    @GetMapping
+    public List<MemberDto> getAllMembers() {
+        return memberService.findAllMembers();
+    }
+//    @GetMapping
 //    public List<UserRegistrationDto> getAllMembers() {
-//        return memberService.getAllMembers().stream().map(this::convertToDto).collect(Collectors.toList());
+//        List<UserRegistrationDto> collect = memberService.getAllMembers().stream().map(this::convertToDto).collect(Collectors.toList());
+//        return collect;
 //    }
 //
 //    private UserRegistrationDto convertToDto(Member member) {
@@ -54,11 +64,11 @@ public class MemberController {
 //        return memberService.getMemberById(id);
 //    }
     @GetMapping("/{memberId}")
-    public ResponseEntity<Member> getMemberById(@PathVariable Long memberId) {
-        Member member = memberService.getMemberById(memberId);
-        if (member != null) {
-            return ResponseEntity.ok(member);
-        } else {
+    public ResponseEntity<MemberDto> getMemberById(@PathVariable Long memberId) {
+        try {
+            MemberDto memberDto = memberService.getMemberById(memberId);
+            return ResponseEntity.ok(memberDto);
+        } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
     }

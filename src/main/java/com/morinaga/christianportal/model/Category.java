@@ -32,5 +32,11 @@ public class Category {
         this.description = description;
         this.contents = contents;
     }
+
+//    public  setId( ) {
+//    }
+
+    public void setId(long l) {
+    }
 // Getters and Setters
 }
