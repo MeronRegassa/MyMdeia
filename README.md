@@ -10,8 +10,7 @@ Future features will include commenting, liking, and sharing videos similar to s
 
 - **User Authentication**: Users can register and log in to access personalized content.
 - **Content Management**: Create, read, update, and delete (CRUD) operations for different types of content, such as sermons, articles, and videos.
-- **Category-Based Browsing**: Users can filter and browse content by categories.
-- **User Profiles**: Registered users have profiles that display their interactions, such as comments and liked content.
+- **Member's Management**:Create, read, update, and delete (CRUD) operations to add, search by id, or update infomation.
 - **Responsive Design**: The app is designed to be mobile-friendly and responsive across different devices.
 
 ## Technical Overview
