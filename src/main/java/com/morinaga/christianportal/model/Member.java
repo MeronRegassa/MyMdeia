@@ -36,6 +36,9 @@ public class Member {
     @OneToMany(mappedBy = "member",fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
+    public Member(long l,  String john, String doe, String mail, String number, ServiceRole serviceRole) {
+    }
+
     // Getters and Setters
 }
 
